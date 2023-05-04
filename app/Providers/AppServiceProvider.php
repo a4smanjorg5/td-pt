@@ -23,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (DB::getDriverName() == 'mysql') {
+            \Schema::defaultStringLength(191);
+        }
+        if (!$this->app->environment('local')) {
+            \URL::forceScheme('https');
+        }
     }
 }
